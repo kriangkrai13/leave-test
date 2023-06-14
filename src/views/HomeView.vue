@@ -1,9 +1,16 @@
-<script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+<template>
+  <h1>
+    บันทึกรายการลา
+  </h1>
+  <Button label="test button" icon="pi pi-times"/>
+</template>
+
+<script>
+export default {
+
+}
 </script>
 
-<template>
-  <main>
-    <TheWelcome />
-  </main>
-</template>
+<style>
+
+</style>
