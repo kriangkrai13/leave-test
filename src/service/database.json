@@ -16,5 +16,6 @@
             "password" : "user2",
             "position" : "programmer"
         }
-    ]
+    ],
+    "leaves" : []
 }

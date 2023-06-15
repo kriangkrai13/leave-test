@@ -1,13 +1,21 @@
 <template>
-  <h1>
-    บันทึกรายการลา
-  </h1>
-  <Button label="test button" icon="pi pi-times"/>
+  <div class="row">
+    <div class="col-12">
+      <h1>หน้าแรก</h1>
+    </div>
+    <div class="col-12">
+      <AddLeave/>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
+import AddLeave from '../components/AddLeave.vue';
 
+
+
+export default {
+    components: { AddLeave }
 }
 </script>
 
