@@ -1,8 +1,12 @@
 <template>
-  <Button label="เพิ่มข้อมูลการลา" icon="pi pi-plus" @click="dialog = true" />
+  <Button
+    label="แก้ไข"
+    icon="pi pi-pencil"
+    class="p-button-success m-1"
+    @click="openDialog" />
 
   <Dialog
-    header="เพิ่มข้อมูลการลา"
+    header="แก้ไขข้อมูลการลา"
     v-model:visible="dialog"
     modal
     :style="{width: '35vw'}"
@@ -62,15 +66,25 @@ export default {
   setup() {
     return {leave_type};
   },
-  emits: ["add-leave-data"],
+  emits: ["edit"],
+  props: {
+    item: Object,
+  },
   data: () => ({
     type: "",
-    dates: null,
+    dates: [],
     dialog: false,
     minDate: new Date(Date.now()),
     detail: "",
   }),
   methods: {
+    openDialog() {
+      this.dates[0] = new Date(dayjs(this.item.datestart).format());
+      this.dates[1] = new Date(dayjs(this.item.dateend).format());
+      this.detail = this.item.detail;
+      this.type = this.item.type;
+      this.dialog = true;
+    },
     save() {
       if (this.type === "") {
         this.$toast.add({
@@ -81,8 +95,7 @@ export default {
         });
         return false;
       }
-
-      if (this.dates === null) {
+      if (this.dates === null || this.dates[1] === null) {
         this.$toast.add({
           severity: "warn",
           summary: "ช่วงเวลาที่ลา",
@@ -91,25 +104,20 @@ export default {
         });
         return false;
       }
-      if (this.dates[1] === null) {
-        this.dates[1] === this.dates[0];
-      }
 
       if (this.detail === "") {
         this.$toast.add({
           severity: "warn",
           summary: "ข้อมูลรายละเอียด",
           detail: "กรุณากรอกข้อมูลรายละเอียดการลา",
-          life: 3000,
         });
         return false;
       }
 
-      //กำหนด id โดยไม่ซ้ำ
       const data = JSON.parse(localStorage.getItem("data"));
-
-      //check ช่วงเวลาที่ลา
-      const check_leave = data.filter(
+      //check วันที่การลา
+      const data_for_check = data.filter((el) => el.id !== this.item.id);
+      const check_leave = data_for_check.filter(
         (el) =>
           dayjs(el.datestart).format("YYYY-MM-DD") >=
             dayjs(this.dates[0]).format("YYYY-MM-DD") &&
@@ -125,41 +133,33 @@ export default {
         });
         return false;
       }
-
       this.$confirm.require({
         message: "คุณต้องการเพิ่มข้อมูลการลานี้?",
         header: "เพิ่มข้อมูลการลา",
         icon: "pi pi-exclamation-triangle",
-        rejectLabel : 'ยกเลิก', 
-        acceptLabel : 'ตกลง',
+        rejectLabel: "ยกเลิก",
+        acceptLabel: "ตกลง",
         accept: () => {
-          const id = data.length + 1;
+          const position = data.findIndex((el) => el.id === this.item.id);
           const new_data = {
-            id: id,
+            ...this.item,
             type: this.type,
             datestart: dayjs(this.dates[0]).format("YYYY-MM-DD"),
             dateend: dayjs(this.dates[1]).format("YYYY-MM-DD"),
             detail: this.detail,
-            timestamp: dayjs(Date.now()).format(),
           };
-          data.push(new_data);
+          data.splice(position, 1, new_data);
           localStorage.setItem("data", JSON.stringify(data));
+          this.$emit("edit", new_data);
           this.$toast.add({
             severity: "success",
-            summary: "เพิ่มสำเร็จ",
-            detail: "เพิ่มข้อมูลการลาเรียบร้อยแล้ว",
+            summary: "อัพเดตสำเร็จ",
+            detail: "แก้ไขข้อมูลการลาเรียบร้อยแล้ว",
             life: 3000,
           });
-          this.clear();
           this.dialog = false;
-          this.$emit("add-leave-data", new_data);
         },
       });
-    },
-    clear() {
-      this.detail = "";
-      this.type = "";
-      this.dates = null;
     },
   },
 };
