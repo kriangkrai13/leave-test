@@ -3,7 +3,8 @@ import {createPinia} from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
-
+// custom css
+import './assets/style.css'
 // primevue css
 import PrimeVue from "primevue/config";
 import "primeicons/primeicons.css";
@@ -24,7 +25,6 @@ import Dropdown from "primevue/dropdown";
 import Calendar from "primevue/calendar";
 import Editor from "primevue/editor";
 import Textarea from "primevue/textarea";
-
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';   // optional
@@ -33,6 +33,7 @@ import Row from 'primevue/row';                   // optional
 import Chip from "primevue/chip";
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
+import Divider from "primevue/divider";
 const app = createApp(App);
 
 app.use(createPinia());
@@ -57,5 +58,6 @@ app.component('ColumnGroup', ColumnGroup);
 app.component('Row', Row);
 app.component('Chip', Chip);
 app.component('ConfirmDialog',ConfirmDialog);
+app.component('Divider',Divider);
 
 app.mount("#app");

@@ -3,8 +3,8 @@
     <template #start>
       <img
         alt="logo"
-        src="https://cdn-icons-png.flaticon.com/512/3387/3387188.png"
-        height="50"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1184px-Vue.js_Logo_2.svg.png"
+        height="40"
         class="mr-2 ml-2"
       />
     </template>
@@ -20,6 +20,11 @@ export default {
         to: "/",
         icon: "pi pi-home",
       },
+      {
+        label : "เกี่ยวกับโครงสร้าง",
+        to : '/about',
+        icon : "pi pi-info-circle"
+      }
     ],
   }),
 };
