@@ -27,6 +27,7 @@
         <span class="p-float-label">
           <Calendar
             hideOnRangeSelection
+            touchUI
             v-model="dates"
             showIcon
             showButtonBar

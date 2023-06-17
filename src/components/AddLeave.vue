@@ -25,6 +25,7 @@
             hideOnRangeSelection
             v-model="dates"
             showIcon
+            touchUI
             showButtonBar
             class="w-full"
             selectionMode="range"
