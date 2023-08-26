@@ -1,6 +1,6 @@
-# leavework-test
+# leavework-test (ระบบบันทึกการลา)
 
-This template should help get you started developing with Vue 3 in Vite.
+ระบบนี้ทำขึ้นโดยใช้ Vuejs+vite โดยไม่มีการเชื่อมต่อฐานข้อมูลใดๆ ใช้ LocalStorage เป็นตัวเก็บข้อมูลแทนในรูปแบบ json
 
 ## Recommended IDE Setup
 
